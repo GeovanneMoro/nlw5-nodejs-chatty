@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "database": "nlw5",
+  "username": "docker",
+  "password": "ignite",
+  "host": "localhost",
+  "port": 5432,
+  "entities": ["./src/modules/**/entities/*.ts"],
+  "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
+  "logging": true,
+  "cli": {
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+  }
+}
