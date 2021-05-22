@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
-import { container } from 'tsyringe';
+import { Request, Response } from "express";
+import { container } from "tsyringe";
 
-import { CreateSettingUseCase } from './CreateSettingUseCase';
+import { CreateSettingUseCase } from "./CreateSettingUseCase";
 
 class CreateSettingController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -11,7 +11,7 @@ class CreateSettingController {
 
     const setting = await createSettingUseCase.execute({ username, chat });
 
-    return response.json(setting);
+    return response.status(201).json(setting);
   }
 }
 

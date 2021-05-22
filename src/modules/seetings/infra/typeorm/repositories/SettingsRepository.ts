@@ -1,8 +1,8 @@
-import { ICreateSettingDTO } from '../../../dtos/ICreateSettingDTO';
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, Repository } from "typeorm";
 
-import { ISettingsRepository } from '../../../repositories/ISettingsRepository';
-import { Setting } from '../entities/Setting';
+import { ICreateSettingDTO } from "../../../dtos/ICreateSettingDTO";
+import { ISettingsRepository } from "../../../repositories/ISettingsRepository";
+import { Setting } from "../entities/Setting";
 
 @EntityRepository(Setting)
 class SettingsRepository implements ISettingsRepository {
@@ -10,6 +10,12 @@ class SettingsRepository implements ISettingsRepository {
 
   constructor() {
     this.repository = getRepository(Setting);
+  }
+
+  async findByUsername(username: string): Promise<Setting> {
+    const setting = await this.repository.findOne({ username });
+
+    return setting;
   }
 
   async create({ username, chat = true }: ICreateSettingDTO): Promise<Setting> {

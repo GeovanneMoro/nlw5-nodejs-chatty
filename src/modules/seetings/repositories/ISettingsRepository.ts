@@ -1,7 +1,8 @@
-import { ICreateSettingDTO } from '../dtos/ICreateSettingDTO';
-import { Setting } from '../infra/typeorm/entities/Setting';
+import { ICreateSettingDTO } from "../dtos/ICreateSettingDTO";
+import { Setting } from "../infra/typeorm/entities/Setting";
 
 interface ISettingsRepository {
+  findByUsername(username: string): Promise<Setting>;
   create(data: ICreateSettingDTO): Promise<Setting>;
 }
 
