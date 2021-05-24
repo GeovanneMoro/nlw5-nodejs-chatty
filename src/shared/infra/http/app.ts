@@ -1,5 +1,8 @@
 import "reflect-metadata";
 import express, { Request, Response, NextFunction } from "express";
+import { createServer } from "http";
+import path from "path";
+import { Server, Socket } from "socket.io";
 
 import "express-async-errors";
 import { AppError } from "../../errors/AppError";
@@ -9,6 +12,24 @@ import { router } from "./routes";
 
 createConnection();
 const app = express();
+
+app.use(express.static(path.join(__dirname, "..", "..", "..", "..", "public"))); // acessando pasta public
+app.set("views", path.join(__dirname, "..", "..", "..", "..", "public"));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+app.engine("html", require("ejs").renderFile);
+
+app.set("view engine", "html");
+
+app.get("/pages/client", (request, response) => {
+  return response.render("html/client.html");
+});
+
+const http = createServer(app); // criando protocolo http
+const io = new Server(http); // criando protocolo ws
+
+io.on("connection", (socket: Socket) => {
+  console.log("Se conectou", socket.id);
+});
 
 app.use(express.json());
 
@@ -36,4 +57,4 @@ app.use(
   }
 );
 
-export { app };
+export { http, io };

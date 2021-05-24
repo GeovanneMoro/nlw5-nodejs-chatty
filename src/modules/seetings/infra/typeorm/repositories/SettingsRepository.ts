@@ -25,6 +25,19 @@ class SettingsRepository implements ISettingsRepository {
 
     return setting;
   }
+
+  async updateByUsername({
+    username,
+    chat,
+  }: ICreateSettingDTO): Promise<Setting> {
+    const setting = await this.repository.findOne({ username });
+
+    setting.chat = chat;
+
+    await this.repository.save(setting);
+
+    return setting;
+  }
 }
 
 export { SettingsRepository };

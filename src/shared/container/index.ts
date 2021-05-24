@@ -1,5 +1,7 @@
 import { container } from "tsyringe";
 
+import { ConnectionsRepository } from "../../modules/connections/infra/typeorm/repositories/ConnectionsRepository";
+import { IConnectionsRepository } from "../../modules/connections/repositories/IConnectionsRepository";
 import { MessagesRepository } from "../../modules/messages/infra/typeorm/repositories/MessagesRepository";
 import { IMessagesRepository } from "../../modules/messages/repositories/IMessagesRepository";
 import { SettingsRepository } from "../../modules/seetings/infra/typeorm/repositories/SettingsRepository";
@@ -20,4 +22,9 @@ container.registerSingleton<IUserRepository>(
 container.registerSingleton<IMessagesRepository>(
   "MessagesRepository",
   MessagesRepository
+);
+
+container.registerSingleton<IConnectionsRepository>(
+  "ConnectionsRepository",
+  ConnectionsRepository
 );

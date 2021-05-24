@@ -1,5 +1,6 @@
-import { app } from "./app";
+import { http } from "./app";
+import "./websocket/client";
 
 const port = process.env.PORT || 3333;
 
-app.listen(port, () => console.log("Server is running!"));
+http.listen(port, () => console.log("Server is running!"));
