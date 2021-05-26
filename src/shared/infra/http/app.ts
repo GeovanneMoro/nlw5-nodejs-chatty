@@ -24,6 +24,10 @@ app.get("/pages/client", (request, response) => {
   return response.render("html/client.html");
 });
 
+app.get("/pages/admin", (request, response) => {
+  return response.render("html/admin.html");
+});
+
 const http = createServer(app); // criando protocolo http
 const io = new Server(http); // criando protocolo ws
 
@@ -32,16 +36,6 @@ io.on("connection", (socket: Socket) => {
 });
 
 app.use(express.json());
-
-app.get("/", (request, response) => {
-  return response.json({ message: "GET funcionou!" });
-});
-
-app.post("/", (request, response) => {
-  const { name } = request.body;
-
-  return response.json({ message: `${name}, o POST funcionou!` });
-});
 
 app.use(router);
 
